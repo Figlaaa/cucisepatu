@@ -1,11 +1,11 @@
 document.addEventListener("alpine:init", () => {
   Alpine.data("products", () => ({
     items: [
-      { id: 1, name: "Fast Cleaning ", img: "foto2.jpg", price: 35000 },
+      { id: 1, name: "Fast Cleaning ", img: "udin.jpg", price: 35000 },
       { id: 2, name: "Deep Cleaning ", img: "foto2.jpg", price: 70000 },
-      { id: 3, name: "Premium Treatment ", img: "foto2.jpg", price: 100000 },
-      { id: 4, name: "Unyellowing ", img: "foto2.jpg", price: 80000 },
-      { id: 5, name: "Repaint ", img: "foto2.jpg", price: 150000 },
+      { id: 3, name: "Premium Treatment ", img: "premiumm.jpg", price: 100000 },
+      { id: 4, name: "Unyellowing ", img: "unyelowing.jpg", price: 80000 },
+      { id: 5, name: "Repaint ", img: "repaint.jpg", price: 150000 },
     ],
   }));
   Alpine.store("cart", {
