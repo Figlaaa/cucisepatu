@@ -1,11 +1,11 @@
 document.addEventListener("alpine:init", () => {
   Alpine.data("products", () => ({
     items: [
-      { id: 1, name: "Robusta Brazil ", img: "foto2.jpg", price: 100000 },
-      { id: 2, name: "Robusta Brazi ", img: "foto2.jpg", price: 200000 },
-      { id: 3, name: "Robusta Braz ", img: "foto2.jpg", price: 300000 },
-      { id: 4, name: "Robusta Bra ", img: "foto2.jpg", price: 400000 },
-      { id: 5, name: "Robusta Br ", img: "foto2.jpg", price: 500000 },
+      { id: 1, name: "Fast Cleaning ", img: "foto2.jpg", price: 35000 },
+      { id: 2, name: "Deep Cleaning ", img: "foto2.jpg", price: 70000 },
+      { id: 3, name: "Premium Treatment ", img: "foto2.jpg", price: 100000 },
+      { id: 4, name: "Unyellowing ", img: "foto2.jpg", price: 80000 },
+      { id: 5, name: "Repaint ", img: "foto2.jpg", price: 150000 },
     ],
   }));
   Alpine.store("cart", {
@@ -65,6 +65,51 @@ document.addEventListener("alpine:init", () => {
     },
   });
 });
+
+// Form Validation
+const checkoutButton = document.querySelector(".checkout-button");
+checkoutButton.disabled = true;
+
+const form = document.querySelector("#checkoutForm");
+
+form.addEventListener("keyup", function () {
+  for (let i = 0; i < form.elements.length; i++) {
+    if (form.elements[i].value.length !== 0) {
+      checkoutButton.classList.remove("disabled");
+      checkoutButton.classList.add("disabled");
+    } else {
+      return false;
+    }
+  }
+  checkoutButton.disabled = false;
+  checkoutButton.classList.remove("disabled");
+});
+
+// Kirim data ketika tombol checkout diklik
+checkoutButton.addEventListener("click", async function (e) {
+  e.preventDefault();
+  const formData = new FormData(form);
+  const data = new URLSearchParams(formData);
+  const ObjData = Object.fromEntries(data);
+  const message = formatMessage(ObjData);
+  window.open(
+    "http://wa.me/62895394511551?text=" + encodeURIComponent(message)
+  );
+});
+
+//format pesan whatsapp
+const formatMessage = (obj) => {
+  return `Data Customer
+   Nama: ${obj.name}
+   Email: ${obj.email}
+   No HP: ${obj.phone}
+Data Pesanan
+  ${JSON.parse(obj.items).map(
+    (item) => `${item.name} (${item.quantity} x ${rupiah(item.total)}) \n`
+  )}
+TOTAL: ${rupiah(obj.total)}
+Terima kasih.`;
+};
 
 // konversi ke Rupiah
 const rupiah = (number) => {
